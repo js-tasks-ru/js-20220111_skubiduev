@@ -16,6 +16,7 @@ export function uniq(arr) {
     for (let j = 0; j < i; j++) {
       if (arr[j] === arr[i]) {
         matching = true;
+        break;
       }
     }
 
