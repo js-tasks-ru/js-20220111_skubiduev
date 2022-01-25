@@ -3,12 +3,12 @@ export default class ColumnChart {
     this.chartHeight = 50;
     this.options = {
       data: [],
-      label: 'orders',
+      label: '',
       value: 0,
-      link: '#',
+      link: '',
     };
     Object.assign(this.options, options);
-    this.update(this.options, arguments.length === 0);
+    this.update(this.options, options === undefined);
   }
 
   update(options, isLoading) {
@@ -30,8 +30,8 @@ export default class ColumnChart {
     const newData = this.getColumnProps(options.data);
     let elementInnerHtml = `<div class="column-chart__title">Total ${options.label}`;
 
-    if (options.label === 'orders') {
-      elementInnerHtml += '<a href="/sales" class="column-chart__link">View all</a>';
+    if (options.link) {
+      elementInnerHtml += `<a href="${options.link}" class="column-chart__link">View all</a>`;
     }
 
     elementInnerHtml += `</div><div class="column-chart__container"><div data-element="header" class="column-chart__header">`;
@@ -47,6 +47,7 @@ export default class ColumnChart {
   }
 
   destroy() {
+    this.remove();
   }
 
   remove() {
@@ -55,7 +56,7 @@ export default class ColumnChart {
 
   getColumnProps(data) {
     const maxValue = Math.max(...data);
-    const scale = 50 / maxValue;
+    const scale = this.chartHeight / maxValue;
 
     return data.map(item => {
       return {
