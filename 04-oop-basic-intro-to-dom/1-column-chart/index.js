@@ -6,6 +6,7 @@ export default class ColumnChart {
       label: '',
       value: 0,
       link: '',
+      formatHeading: data => data
     };
     Object.assign(this.options, options);
     this.update(this.options, options === undefined);
@@ -34,9 +35,7 @@ export default class ColumnChart {
       elementInnerHtml += `<a href="${options.link}" class="column-chart__link">View all</a>`;
     }
 
-    elementInnerHtml += `</div><div class="column-chart__container"><div data-element="header" class="column-chart__header">`;
-    elementInnerHtml += options.formatHeading ? options.formatHeading(options.value) : options.value;
-    elementInnerHtml += `</div><div data-element="body" class="column-chart__chart">`;
+    elementInnerHtml += `</div><div class="column-chart__container"><div data-element="header" class="column-chart__header">${options.formatHeading(options.value)}</div><div data-element="body" class="column-chart__chart">`;
 
     for (const item of newData) {
       elementInnerHtml += `<div style="--value: ${item.value}" data-tooltip="${item.percent}"></div>`;
