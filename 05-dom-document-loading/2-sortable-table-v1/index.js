@@ -25,22 +25,7 @@ export default class SortableTable {
       let row = `<a href="/products/${column.id}" class="sortable-table__row">`;
 
       for (const header of headerConfig) {
-        switch (header.title) {
-        case 'Image':
-          htmlDataArray.push(header.template());
-          break;
-        case 'Name':
-          htmlDataArray.push(`<div class="sortable-table__cell">${column.title}</div>`);
-          break;
-        case 'Quantity':
-          htmlDataArray.push(`<div class="sortable-table__cell">${column.quantity}</div>`);
-          break;
-        case 'Price':
-          htmlDataArray.push(`<div class="sortable-table__cell">${column.price}</div>`);
-          break;
-        case 'Sales':
-          htmlDataArray.push(`<div class="sortable-table__cell">${column.sales}</div>`);
-        }
+        header.id === 'image' ? htmlDataArray.push(header.template()) : htmlDataArray.push(`<div class="sortable-table__cell">${column[header.id]}</div>`);
       }
 
       row += `${htmlDataArray.join('')}</a>`;
